@@ -29,6 +29,15 @@ def main(max_angle: float, num_samples: int, plot: bool = False, export: bool = 
     cdf_hist_radius = np.cumsum(hist_radius) * (bins_radius[1] - bins_radius[0])
     hist_angle, bins_angle = np.histogram(result_phases, bins=num_bins, density=True)
 
+    hist_joint, bins_angle_joint, bins_radius_joint = np.histogram2d(
+        result_phases, result_radius, bins=num_bins, density=True
+    )
+    hist_joint = hist_joint.T
+    mesh_angle, mesh_radius = np.meshgrid(bins_angle_joint, bins_radius_joint)
+
+    _R, _T = np.meshgrid(line_radius[:-1:5], line_angle[:-1:5])
+    pdf_joint = pdf_joint_radius_angle_n2(_R, _T, max_angle)
+
     if plot:
         fig, axs = plt.subplots()
         axs.hist(result_radius, bins=num_bins, density=True, cumulative=True)
@@ -41,6 +50,18 @@ def main(max_angle: float, num_samples: int, plot: bool = False, export: bool = 
         axs.plot(line_angle, pdf_angle)
         axs.set_xlabel("Angle $\\theta_2$")
         axs.set_ylabel("PDF")
+
+        fig, axs = plt.subplots(2)
+        _plot = axs[0].pcolormesh(mesh_radius, mesh_angle, hist_joint)
+        axs[0].plot(2 * np.cos(max_angle - np.abs(line_angle)), line_angle, "r--")
+        axs[0].set_xlim([min_radius, 2])
+        axs[0].set_ylim([-max_angle, max_angle])
+        fig.colorbar(_plot)
+        _plot = axs[1].pcolormesh(_R, _T, pdf_joint)
+        axs[1].plot(2 * np.cos(max_angle - np.abs(line_angle)), line_angle, "r--")
+        axs[1].set_xlim([min_radius, 2])
+        axs[1].set_ylim([-max_angle, max_angle])
+        fig.colorbar(_plot)
 
     if export:
         results_exact = {
@@ -60,6 +81,14 @@ def main(max_angle: float, num_samples: int, plot: bool = False, export: bool = 
         }
         fname_mc = f"results-mc-n2-a{max_angle:.3f}.dat"
         export_results(results_mc, fname_mc)
+
+        results_joint = {
+            "radius": np.ravel(_R),
+            "angle": np.ravel(_T),
+            "pdfJoint": np.ravel(pdf_joint),
+        }
+        fname_joint = f"results-joint-n2-a{max_angle:.3f}.dat"
+        export_results(results_joint, fname_joint)
     return
 
 
