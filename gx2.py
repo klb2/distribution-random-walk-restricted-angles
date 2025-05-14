@@ -6,12 +6,13 @@ generalized chi-square distribution.
 This implementation is adapted from the Matlab toolbox "gx2" by Abhranil Das.
 (https://github.com/abhranildas/gx2)
 """
+
 import numpy as np
 from scipy import stats, special, integrate
 import joblib
 
 
-def _gx2_imhof_integrand_pdf(u, x, w, k, lam, s, m):
+def _gx2_imhof_integrand(u, x, w, k, lam, s, m, output: str = "pdf"):
     theta = (
         np.sum(k * np.atan(w * u) + (lam * (w * u)) / (1 + w**2 * u**2), axis=0) / 2
         + u * (m - x) / 2
@@ -21,8 +22,14 @@ def _gx2_imhof_integrand_pdf(u, x, w, k, lam, s, m):
         * np.exp(((w**2 * u**2) * lam) / (2 * (1 + w**2 * u**2))),
         axis=0,
     ) * np.exp(u**2 * s**2 / 8)
-    f = np.cos(theta) / rho
+    if output == "pdf":
+        f = np.cos(theta) / rho
+    elif output == "cdf":
+        f = np.sin(theta) / (u * rho)
+    else:
+        raise ValueError("Only PDF and CDF are supported")
     return f
+
 
 def gx2_pdf_imhof(x, w, k, lam, s, m):
     w = np.array(w)
@@ -30,15 +37,45 @@ def gx2_pdf_imhof(x, w, k, lam, s, m):
     k = np.array(k)
     lam = np.array(lam)
     _integrand = lambda y: integrate.quad(
-       _gx2_imhof_integrand_pdf, 0, np.inf, args=(y, w, k, lam, s, m)
+        _gx2_imhof_integrand,
+        0,
+        np.inf,
+        args=(y, w, k, lam, s, m, "pdf"),
+        limit=100,
     )[0]
     _pdf = joblib.Parallel(int(joblib.cpu_count() * 0.85))(
-       joblib.delayed(_integrand)(_x) for _x in x
+        joblib.delayed(_integrand)(_x) for _x in x
     )
     # for _x in x:
     # result = integrate.quad(_gx2_imhof_integrand_pdf, 0, np.inf, args=(_x, w, k, lam, s, m))
+    # _pdf = [
+    #    integrate.quad(_gx2_imhof_integrand_pdf, 0, np.inf, args=(_x, w, k, lam, s, m))[
+    #        0
+    #    ]
+    #    for _x in x
+    # ]
+    # print(_pdf)
     pdf = np.array(_pdf) / (2 * np.pi)
     return pdf
+
+
+def gx2_cdf_imhof(x, w, k, lam, s, m):
+    w = np.array(w)
+    x = np.array(x)
+    k = np.array(k)
+    lam = np.array(lam)
+    _integrand = lambda y: integrate.quad(
+        _gx2_imhof_integrand,
+        0,
+        np.inf,
+        args=(y, w, k, lam, s, m, "cdf"),
+        limit=100,
+    )[0]
+    _integral = joblib.Parallel(int(joblib.cpu_count() * 0.85))(
+        joblib.delayed(_integrand)(_x) for _x in x
+    )
+    _cdf = 0.5 - np.array(_integral) / np.pi
+    return _cdf
 
 
 def gx2_pdf_ruben(x, w, k, lam, m: float = 0, num_ruben: int = 100):
@@ -73,11 +110,13 @@ if __name__ == "__main__":
     lam = np.array([2, 3, 7])
     m = 0
     s = 0
-    pdf_ruben = gx2_pdf_ruben(x, w, k, lam, m=m)
-    pdf_imhof = gx2_pdf_imhof(x, w, k, lam, s=s, m=m)
+    # pdf_ruben = gx2_pdf_ruben(x, w, k, lam, m=m)
+    # pdf_imhof = gx2_pdf_imhof(x, w, k, lam, s=s, m=m)
+    cdf_imhof = gx2_cdf_imhof(x, w, k, lam, s=s, m=m)
 
     import matplotlib.pyplot as plt
 
-    plt.plot(x, pdf_ruben)
-    plt.plot(x, pdf_imhof, '--')
+    # plt.plot(x, pdf_ruben)
+    # plt.plot(x, pdf_imhof, "--")
+    plt.plot(x, cdf_imhof)
     plt.show()
