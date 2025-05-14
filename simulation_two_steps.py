@@ -40,27 +40,46 @@ def main(max_angle: float, num_samples: int, plot: bool = False, export: bool = 
 
     if plot:
         fig, axs = plt.subplots()
-        axs.hist(result_radius, bins=num_bins, density=True, cumulative=True)
-        axs.plot(line_radius, cdf_radius)
+        axs.hist(
+            result_radius,
+            bins=num_bins,
+            density=True,
+            cumulative=True,
+            label="Histogram",
+        )
+        axs.plot(line_radius, cdf_radius, label="Exact Solution")
+        axs.legend()
         axs.set_xlabel("Radius $R_2$")
         axs.set_ylabel("CDF")
+        axs.set_title(f"CDF of the Radius for $a={max_angle:.3f}$")
 
         fig, axs = plt.subplots()
-        axs.hist(result_phases, bins=num_bins, density=True, cumulative=False)
-        axs.plot(line_angle, pdf_angle)
+        axs.hist(
+            result_phases,
+            bins=num_bins,
+            density=True,
+            cumulative=False,
+            label="Histogram",
+        )
+        axs.plot(line_angle, pdf_angle, label="Exact")
+        axs.legend()
         axs.set_xlabel("Angle $\\theta_2$")
         axs.set_ylabel("PDF")
+        axs.set_title(f"PDF of the Angle for $a={max_angle:.3f}$")
 
         fig, axs = plt.subplots(2)
         _plot = axs[0].pcolormesh(mesh_radius, mesh_angle, hist_joint)
         axs[0].plot(2 * np.cos(max_angle - np.abs(line_angle)), line_angle, "r--")
         axs[0].set_xlim([min_radius, 2])
         axs[0].set_ylim([-max_angle, max_angle])
+        axs[0].set_title("Histogram")
         fig.colorbar(_plot)
         _plot = axs[1].pcolormesh(_R, _T, pdf_joint)
         axs[1].plot(2 * np.cos(max_angle - np.abs(line_angle)), line_angle, "r--")
         axs[1].set_xlim([min_radius, 2])
         axs[1].set_ylim([-max_angle, max_angle])
+        axs[1].set_title("Exact")
+        fig.suptitle(f"Joint PDF of Radius and Angle for $a={max_angle:.3f}$")
         fig.colorbar(_plot)
 
     if export:
