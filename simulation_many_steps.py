@@ -10,6 +10,7 @@ from many_steps import (
     pdf_radius_n_large,
     pdf_joint_radius_angle_n_large,
 )
+import support
 from util import export_results
 
 LOGGER = logging.getLogger(__name__)
@@ -30,11 +31,7 @@ def main(
     result_radius = np.abs(result_vector)
     result_phases = np.angle(result_vector)
 
-    _ceil = np.ceil(num_steps / 2)
-    _floor = np.floor(num_steps / 2)
-    min_radius = np.sqrt(
-        _ceil**2 + _floor**2 + 2 * _ceil * _floor * np.cos(2 * max_angle)
-    )
+    min_radius = support.min_radius(max_angle, num_steps)
     line_radius = np.linspace(min_radius, num_steps, num_plot_points)
     line_angle = np.linspace(-max_angle, max_angle, num_plot_points)
 
