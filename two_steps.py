@@ -47,8 +47,8 @@ def pdf_joint_radius_angle_n2(radius, theta, max_angle):
     _pdf = radius / (max_angle**2 * np.sqrt(radius**2 * (4 - radius**2)))
     pdf = np.where(
         np.logical_and(
-            2 * np.cos(max_angle - np.abs(theta)) < radius,
-            radius < 2,
+            np.logical_and(2 * np.cos(max_angle - np.abs(theta)) < radius, radius < 2),
+            np.logical_and(-max_angle <= theta, theta <= max_angle),
         ),
         _pdf,
         0,
