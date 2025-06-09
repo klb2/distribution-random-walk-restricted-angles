@@ -11,20 +11,33 @@ LOGGER = logging.getLogger(__name__)
 
 
 def main(max_angle: float, num_samples: int, plot: bool = False, export: bool = False):
+    LOGGER.info("Starting simulation with two steps...")
     num_bins = 50
     num_plot_points = 250
 
+    min_radius = 2 * np.cos(max_angle)
+    line_radius = np.linspace(min_radius, 2, num_plot_points)
+    line_angle = np.linspace(-max_angle, max_angle, num_plot_points)
+    LOGGER.debug("Finished preparations.")
+
+    LOGGER.info("Calculating marginal distributions...")
+    cdf_radius = cdf_radius_n2(line_radius, max_angle)
+    LOGGER.debug("Finished calculating radius distribution.")
+    pdf_angle = pdf_angle_n2(line_angle, max_angle)
+    LOGGER.debug("Finished calculating angle distribution.")
+    LOGGER.info("Finished calculating marginal distributions.")
+
+    LOGGER.info("Calculating joint distribution...")
+    _R, _T = np.meshgrid(line_radius[:-1:5], line_angle[:-1:5])
+    pdf_joint = pdf_joint_radius_angle_n2(_R, _T, max_angle)
+    LOGGER.info("Finished calculating joint distribution.")
+
+    LOGGER.info("Starting Monte Carlo simulation...")
     phases = (2 * np.random.rand(num_samples, 2) - 1) * max_angle
     result_vector = np.sum(np.exp(1j * phases), axis=1)
     result_radius = np.abs(result_vector)
     result_phases = np.angle(result_vector)
 
-    min_radius = 2 * np.cos(max_angle)
-    line_radius = np.linspace(min_radius, 2, num_plot_points)
-    line_angle = np.linspace(-max_angle, max_angle, num_plot_points)
-
-    cdf_radius = cdf_radius_n2(line_radius, max_angle)
-    pdf_angle = pdf_angle_n2(line_angle, max_angle)
     hist_radius, bins_radius = np.histogram(result_radius, bins=num_bins, density=True)
     cdf_hist_radius = np.cumsum(hist_radius) * (bins_radius[1] - bins_radius[0])
     hist_angle, bins_angle = np.histogram(result_phases, bins=num_bins, density=True)
@@ -34,11 +47,10 @@ def main(max_angle: float, num_samples: int, plot: bool = False, export: bool = 
     )
     hist_joint = hist_joint.T
     mesh_angle, mesh_radius = np.meshgrid(bins_angle_joint, bins_radius_joint)
-
-    _R, _T = np.meshgrid(line_radius[:-1:5], line_angle[:-1:5])
-    pdf_joint = pdf_joint_radius_angle_n2(_R, _T, max_angle)
+    LOGGER.info("Finished Monte Carlo simulations.")
 
     if plot:
+        LOGGER.info("Plotting...")
         fig, axs = plt.subplots()
         axs.hist(
             result_radius,
@@ -83,6 +95,7 @@ def main(max_angle: float, num_samples: int, plot: bool = False, export: bool = 
         fig.colorbar(_plot)
 
     if export:
+        LOGGER.info("Exporting results...")
         results_exact = {
             "radius": line_radius,
             "cdfRad": cdf_radius,
@@ -108,6 +121,8 @@ def main(max_angle: float, num_samples: int, plot: bool = False, export: bool = 
         }
         fname_joint = f"results-joint-n2-a{max_angle:.3f}.dat"
         export_results(results_joint, fname_joint)
+
+    LOGGER.info("Finished all simulations and calculations.")
     return
 
 
