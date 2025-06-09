@@ -23,7 +23,7 @@ def main(
     plot: bool = False,
     export: bool = False,
 ):
-    LOGGER.info("Starting simulation with three steps...")
+    LOGGER.info(f"Starting simulation with {num_steps:d} steps...")
     num_bins = 50
     num_plot_points = 250
 

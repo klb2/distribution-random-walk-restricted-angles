@@ -16,6 +16,7 @@ def main(
     plot: bool = False,
     export: bool = False,
 ):
+    LOGGER.info(f"Starting support simulation with {num_steps:d} steps...")
     t = np.linspace(0, 1, num_samples)
     inner_support = support_inner_param(t, max_angle, num_steps)
     outer_support = support_outer_param(t, max_angle, num_steps)
@@ -23,6 +24,7 @@ def main(
     LOGGER.info(f"Minimum radius: Rmin={_min_radius:.3f}")
 
     if plot:
+        LOGGER.info("Plotting...")
         fig, axs = plt.subplots(1, 2)
         axs[0].set_aspect("equal")
         axs[1].set_aspect("equal")
@@ -32,6 +34,7 @@ def main(
             axs[1].hlines(_min_radius, -max_angle, max_angle, ls="--", color="gray")
 
     if export:
+        LOGGER.info("Exporting results...")
         results = {
             "xInner": np.real(inner_support),
             "yInner": np.imag(inner_support),
@@ -44,6 +47,8 @@ def main(
         }
         fname = f"results-support-a{max_angle:.3f}-n{num_steps:n}.dat"
         export_results(results, fname)
+
+    LOGGER.info("Finished all simulations and calculations.")
     return
 
 
