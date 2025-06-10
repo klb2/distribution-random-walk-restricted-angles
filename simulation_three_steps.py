@@ -72,7 +72,10 @@ def main(max_angle: float, num_samples: int, plot: bool = False, export: bool = 
     LOGGER.info("Finished large N approximations.")
 
     LOGGER.info("Calculating joint distribution...")
-    _R, _T = np.meshgrid(line_radius[:-1:5], line_angle[:-1:5])
+    _R, _T = np.meshgrid(
+        np.linspace(min_rad, num_steps*(1+1/num_bins), num_bins),
+        np.linspace(-max_angle, max_angle, num_bins),
+    )
     # _R, _T = np.meshgrid(line_radius, line_angle)
     pdf_joint = pdf_joint_radius_angle_n3(_R, _T, max_angle)
     LOGGER.info("Finished calculating joint distribution.")

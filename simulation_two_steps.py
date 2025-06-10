@@ -28,8 +28,10 @@ def main(max_angle: float, num_samples: int, plot: bool = False, export: bool = 
     LOGGER.info("Finished calculating marginal distributions.")
 
     LOGGER.info("Calculating joint distribution...")
-    _R, _T = np.meshgrid(line_radius[:-1:5], line_angle[:-1:5])
+    _R, _T = np.meshgrid(np.linspace(min_radius, 2.03, num_bins),
+                         np.linspace(-max_angle, max_angle, num_bins))
     pdf_joint = pdf_joint_radius_angle_n2(_R, _T, max_angle)
+    print(pdf_joint)
     LOGGER.info("Finished calculating joint distribution.")
 
     LOGGER.info("Starting Monte Carlo simulation...")

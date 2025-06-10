@@ -41,8 +41,10 @@ def main(
     LOGGER.info("Finished calculating marginal distributions.")
 
     LOGGER.info("Calculating joint distribution...")
-    _R, _T = np.meshgrid(line_radius[:-1:5], line_angle[:-1:5])
-    # _R, _T = np.meshgrid(line_radius, line_angle)
+    _R, _T = np.meshgrid(
+        np.linspace(min_radius, num_steps, num_bins),
+        np.linspace(-max_angle, max_angle, num_bins),
+    )
     pdf_joint = pdf_joint_radius_angle_n_large(_R, _T, max_angle, num_steps)
     LOGGER.info("Finished calculating joint distribution.")
 
