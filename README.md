@@ -1,44 +1,14 @@
-# Template for Reproducible Research Papers
+# On the Distribution of a Two-Dimensional Random Walk with Restricted Angles
 
-[![Marimo](https://img.shields.io/badge/Launch-Marimo_notebook-hsl(168%2C61%25%2C28%25))](https://marimo.app/?src=https%3A%2F%2Fraw.githubusercontent.com%2Fklb2%2Freproducible-paper-python-template%2Frefs%2Fheads%2Fmaster%2FInteractive.py)
-![GitHub](https://img.shields.io/github/license/klb2/reproducible-paper-python-template)
-[![DOI](https://img.shields.io/badge/doi-10.1109/TWC.2022.3172760-informational)](https://doi.org/10.1109/TWC.2022.3172760)
+[![Marimo](https://img.shields.io/badge/Launch-Marimo_notebook-hsl(168%2C61%25%2C28%25))](https://marimo.app/?src=https%3A%2F%2Fraw.githubusercontent.com%2Fklb2%2Fdistribution-random-walk-restricted-angles%2Frefs%2Fheads%2Fmaster%2FInteractive.py)
+![GitHub](https://img.shields.io/github/license/klb2/distribution-random-walk-restricted-angles)
 
 
-```diff
-! Update badge information/links
-```
+This repository is accompanying the paper "On the Distribution of a Two-Dimensional Random Walk with Restricted Angles" (Karl-Ludwig Besser, Jun. 2025).
 
-This repository provides a template for Python code that is accompanying a
-research paper.
-Most likely, this will be an implementation of an algorithm and/or simulation
-results.
-
-The code should be made publicly accessible in order to allow everybody to
-reproduce the results presented in the paper.
-
-You can use this template/fork it and use it as a starting point. You find a
-basic structure in `main.py`, where only need to add your custom code.
-This README also already contains all important information and you only need
-to adjust the parts specific to your project.
-The `run.sh` script should contain the exact commands that you used to generate
-the results/plots in your paper. In particular, you should make sure to specify
-all of the parameters.
-
-The proposed structure of the README is
-1. Information about the paper (title, authors, journal/conference, DOI, arXiv)
-2. File list of all files that are provided in the repository (with short
-   description)
-3. Usage description. If you provide Jupyter notebooks this can also include a
-   link to Binder.
-4. Acknowledgements (funding information, ...)
-5. License and Referencing (description of license and how to cite your work,
-   e.g., the bibtex entry of your paper)
-
-You can find some general ideas on the structure and required aspects of the
-repository in [this blog
-post](https://klb2.gitlab.io/writing/python/2021/12/20/reproducible-papers.html)
-(independent of the used programming language).
+The idea is to give an interactive version of the calculations and presented
+concepts to the reader. One can also change different parameters and explore
+different behaviors on their own.
 
 
 ## File List
@@ -46,28 +16,33 @@ The following files are provided in this repository:
 
 - `run.sh`: Bash script that reproduces the figures presented in the paper.
 - `util.py`: Python module that contains utility functions, e.g., for saving results.
-```diff
-- `main.py`: Python script that...
-- ...
-```
+- `simulation_two_steps.py`: Python script that contains the simulation for a random walk with two steps.
+- `simulation_three_steps.py`: Python script that contains the simulation for a random walk with three steps.
+- `simulation_many_steps.py`: Python script that contains the simulation for a random walk with many steps (large N approximation).
+- `simulation_support.py`: Python script that contains the simulation for exploring the support of the random walk.
+- `gx2.py`: Python module that contains functions to calculate the PDF and CDF of a generalized chi-square distribution.
+- `many_steps.py`: Python module that contains the functions for the large N approximation.
+- `single_step.py`: Python module that contains the functions for a random walk with a single step.
+- `two_steps.py`: Python module that contains the functions for a random walk with two steps.
+- `three_steps.py`: Python module that contains the functions for a random walk with three steps.
+- `support.py`: Python module that contains the functions to calculate the support of the joint distribution
 
 ## Usage
 ### Running it online
 The easiest way is to use the official [marimo](https://marimo.app/) playground
-to run the notebook online. Simply navigate to [https://marimo.app/?src=https%3A%2F%2Fraw.githubusercontent.com%2Fklb2%2Freproducible-paper-python-template%2Frefs%2Fheads%2Fmaster%2FInteractive.py](https://marimo.app/?src=https%3A%2F%2Fraw.githubusercontent.com%2Fklb2%2Freproducible-paper-python-template%2Frefs%2Fheads%2Fmaster%2FInteractive.py)
-```diff
-! Add Marimo app link to notebook.
-```
+to run the notebook online. Simply navigate to [https://marimo.app/?src=https%3A%2F%2Fraw.githubusercontent.com%2Fklb2%2Fdistribution-random-walk-restricted-angles%2Frefs%2Fheads%2Fmaster%2FInteractive.py](https://marimo.app/?src=https%3A%2F%2Fraw.githubusercontent.com%2Fklb2%2Fdistribution-random-walk-restricted-angles%2Frefs%2Fheads%2Fmaster%2FInteractive.py)
 to run the notebooks in your browser without setting everything up locally.
 
 ### Local Installation
-If you want to run it locally on your machine, Python3 and marimo are needed.
+If you want to run it locally on your machine, Python3 and marimo (for the
+interactive notebook) are needed.
 The present code was developed and tested with the following versions:
-```diff
-- Python 3.13
-- numpy 2.2
-- scipy 1.15
-```
+
+- Python 3.13.3
+- numpy 2.3.0
+- scipy 1.15.3
+- pandas 2.2.3
+- joblib 1.4.2
 
 Make sure you have [Python3](https://www.python.org/downloads/) installed on
 your computer.
@@ -91,10 +66,7 @@ bash run.sh
 
 
 ## Acknowledgements
-This research was supported by
-```diff
-! Add funding information
-```
+This research was supported by Security Link.
 
 
 ## License and Referencing
@@ -104,12 +76,8 @@ article listed above.
 
 You can use the following BibTeX entry
 ```bibtex
-@article{...,
-  author = {...},
-  title = {...},
+@article{Besser2025distribution,
+  author = {Besser, Karl-Ludwig},
+  title = {On the Distribution of a Two-Dimensional Random Walk with Restricted Angles},
   ...
 }
-```
-```diff
-! Add bibtex entry of the published paper
-```
