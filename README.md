@@ -43,6 +43,7 @@ The present code was developed and tested with the following versions:
 - scipy 1.15.3
 - pandas 2.2.3
 - joblib 1.4.2
+- marimo 0.13.15
 
 Make sure you have [Python3](https://www.python.org/downloads/) installed on
 your computer.
