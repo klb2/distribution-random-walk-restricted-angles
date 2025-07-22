@@ -1,10 +1,10 @@
 #!/bin/sh
 
-# ...
-# Information about the paper...
-# ...
+# This repository is accompanying the publication
+# "On the Distribution of a Two-Dimensional Random Walk with Restricted Angles"
+# (Karl-Ludwig Besser, Jul. 2025. arXiv:2507.15475).
 #
-# Copyright (C) 20XX ...
+# Copyright (C) 2025 Karl-Ludwig Besser
 # License: MIT
 
 echo "Figures 2, 4, and 5: Distributions for N=2"
