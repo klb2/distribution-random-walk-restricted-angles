@@ -4,7 +4,7 @@
 ![GitHub](https://img.shields.io/github/license/klb2/distribution-random-walk-restricted-angles)
 
 
-This repository is accompanying the paper "On the Distribution of a Two-Dimensional Random Walk with Restricted Angles" (Karl-Ludwig Besser, Jun. 2025).
+This repository is accompanying the paper ["On the Distribution of a Two-Dimensional Random Walk with Restricted Angles"](https://arxiv.org/abs/2507.15475) (Karl-Ludwig Besser, Jul. 2025. [arXiv:2507.15475](https://arxiv.org/abs/2507.15475)).
 
 The idea is to give an interactive version of the calculations and presented
 concepts to the reader. One can also change different parameters and explore
@@ -81,8 +81,12 @@ article listed above.
 
 You can use the following BibTeX entry
 ```bibtex
-@article{Besser2025distribution,
+@misc{Besser2025distribution,
   author = {Besser, Karl-Ludwig},
   title = {On the Distribution of a Two-Dimensional Random Walk with Restricted Angles},
-  ...
+  year = {2025},
+  month = {7},
+  eprinttype = {arXiv},
+  eprint = {2507.15475},
+  eprintclass = {eess.SP},
 }
