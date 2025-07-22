@@ -26,6 +26,10 @@ The following files are provided in this repository:
 - `two_steps.py`: Python module that contains the functions for a random walk with two steps.
 - `three_steps.py`: Python module that contains the functions for a random walk with three steps.
 - `support.py`: Python module that contains the functions to calculate the support of the joint distribution
+- `general_n.wl`: Mathematica script calculating some expressions for the case of a general number of steps.
+- `large_n.wl`: Mathematica script calculating some expressions of the approximations for a large number of steps.
+- `two_steps.wl`: Mathematica script calculating some expressions for the case of two steps.
+
 
 ## Usage
 ### Running it online
