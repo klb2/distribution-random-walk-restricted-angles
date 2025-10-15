@@ -23,3 +23,6 @@ python simulation_many_steps.py -v -a .5 -N 30 --num_samples 10000000 --plot --e
 python simulation_support.py -v -a 0.5 -N 30 --plot --export
 python simulation_many_steps.py -v -a 1.25 -N 5 --num_samples 10000000 --plot --export
 python simulation_many_steps.py -v -a 1.25 -N 30 --num_samples 10000000 --plot --export
+
+echo "OtA example"
+python example_ota_computation.py -v --plot
