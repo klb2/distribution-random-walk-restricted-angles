@@ -44,7 +44,7 @@ def cdf_radius_giv_angle_n2(radius, theta, max_angle):
 
 
 def pdf_joint_radius_angle_n2(radius, theta, max_angle):
-    _pdf = radius / (max_angle**2 * np.sqrt(0j+radius**2 * (4 - radius**2)))
+    _pdf = radius / (max_angle**2 * np.sqrt(0j + radius**2 * (4 - radius**2)))
     pdf = np.where(
         np.logical_and(
             np.logical_and(2 * np.cos(max_angle - np.abs(theta)) < radius, radius < 2),
