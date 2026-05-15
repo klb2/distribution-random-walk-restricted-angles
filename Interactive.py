@@ -1,48 +1,42 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.23.6"
 app = marimo.App(width="medium")
 
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     # On the Distribution of a Two-Dimensional Random Walk with Restricted Angles
 
     _Author:_ Karl-Ludwig Besser (Linköping University)
 
 
-    This notebook is part of the publication "On the Distribution of a Two-Dimensional Random Walk with Restricted Angles".
-    """
-    )
+    This notebook is part of the publication "On the Distribution of a Two-Dimensional Random Walk with Restricted Angles" (Karl-Ludwig Besser, IEEE Transactions on Signal Processing, 2026. [arXiv:2507.15475](https://arxiv.org/abs/2507.15475)).
+    """)
     return
 
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Parameters
 
     In the following, you find sliders which allow you to adjust the following parameters of the simulations:
 
     - Maximum angle $a$
     - Number of steps $N$ (in the [section on the approximation for large $N$](#large-number-of-steps))
-    """
-    )
+    """)
     return
 
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Two Steps
 
     In the following, we will illustrate results for the two-step case, i.e., $N=2$
-    """
-    )
+    """)
     return
 
 
@@ -54,7 +48,9 @@ def _(slider_max_angle):
 
 @app.cell
 def _(mo):
-    mo.md(r"""### Radius $R_2$""")
+    mo.md(r"""
+    ### Radius $R_2$
+    """)
     return
 
 
@@ -75,7 +71,9 @@ def _(cdf_radius_n2, line_radius_2, max_angle, mo, np, plt, result_radius_2):
 
 @app.cell
 def _(mo):
-    mo.md(r"""### Angle $\theta_2$""")
+    mo.md(r"""
+    ### Angle $\theta_2$
+    """)
     return
 
 
@@ -95,7 +93,9 @@ def _(line_phase, max_angle, mo, pdf_angle_n2, plt, result_phases_2):
 
 @app.cell
 def _(mo):
-    mo.md(r"""### Joint Distribution of $(R_2, \theta_2)$""")
+    mo.md(r"""
+    ### Joint Distribution of $(R_2, \theta_2)$
+    """)
     return
 
 
@@ -127,13 +127,11 @@ def _(
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Support
 
     In the following, we illustrate the support of the resulting vector after $N$ steps.
-    """
-    )
+    """)
     return
 
 
@@ -151,7 +149,9 @@ def _(slider_num_components):
 
 @app.cell
 def _(mo):
-    mo.md(r"""### Cartesian Coordinates""")
+    mo.md(r"""
+    ### Cartesian Coordinates
+    """)
     return
 
 
@@ -251,7 +251,9 @@ def _(
 
 @app.cell
 def _(mo):
-    mo.md(r"""### Polar Coordinates""")
+    mo.md(r"""
+    ### Polar Coordinates
+    """)
     return
 
 
@@ -274,13 +276,11 @@ def _(max_angle, min_radius, mo, np, num_components, plt, support):
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Large Number of Steps
 
     In the following, we will take a look a the approximation for a large number of steps $N$.
-    """
-    )
+    """)
     return
 
 
@@ -298,14 +298,12 @@ def _(slider_num_components):
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ### Radius $R_N$
 
     First, we show interactive plots on the distribution of the radius $R_N$ after $N$ steps.
     The plots show both the approximation for large $N$ and a histogram obtained through Monte Carlo simulations.
-    """
-    )
+    """)
     return
 
 
@@ -337,14 +335,12 @@ def _(
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ### Angle $\theta_N$
 
     Next, we show interactive plots on the distribution of the angle $\theta_N$ after $N$ steps.
     The plots show both the approximation for large $N$ and a histogram obtained through Monte Carlo simulations.
-    """
-    )
+    """)
     return
 
 
@@ -374,27 +370,23 @@ def _(
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Code
 
     In the following, we have necessary imports and code.
     As Marimo builds a dependency tree of the cells, they can be in any order.
     Therefore, we can keep the messy parts at the end of the notebook.
-    """
-    )
+    """)
     return
 
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ### Parameter Definitions
 
     In this section, we define (global) parameters and interactive sliders.
-    """
-    )
+    """)
     return
 
 
@@ -450,18 +442,17 @@ def _(max_angle, np, num_plot_points, phases):
 
 @app.cell
 def _(mo):
-    mo.md(r"""### Function Definitions""")
-    return
-
-
-@app.cell
-def _():
+    mo.md(r"""
+    ### Function Definitions
+    """)
     return
 
 
 @app.cell
 def _(mo):
-    mo.md(r"""### Imports""")
+    mo.md(r"""
+    ### Imports
+    """)
     return
 
 
@@ -483,6 +474,7 @@ def _():
         pdf_angle_n_large,
         pdf_joint_radius_angle_n_large,
     )
+
     return (
         cdf_radius_n2,
         cdf_radius_n_large,
