@@ -2,6 +2,7 @@
 
 [![Marimo](https://img.shields.io/badge/Launch-Marimo_notebook-hsl(168%2C61%25%2C28%25))](https://marimo.app/?src=https%3A%2F%2Fraw.githubusercontent.com%2Fklb2%2Fdistribution-random-walk-restricted-angles%2Frefs%2Fheads%2Fmaster%2FInteractive.py)
 ![GitHub](https://img.shields.io/github/license/klb2/distribution-random-walk-restricted-angles)
+[![arXiv](https://img.shields.io/badge/arXiv-2507.15475-informational)](https://arxiv.org/abs/2507.15475)
 
 
 This repository is accompanying the paper ["On the Distribution of a Two-Dimensional Random Walk with Restricted Angles"](https://arxiv.org/abs/2507.15475) (Karl-Ludwig Besser, Jul. 2025. [arXiv:2507.15475](https://arxiv.org/abs/2507.15475)).
@@ -20,6 +21,7 @@ The following files are provided in this repository:
 - `simulation_three_steps.py`: Python script that contains the simulation for a random walk with three steps.
 - `simulation_many_steps.py`: Python script that contains the simulation for a random walk with many steps (large N approximation).
 - `simulation_support.py`: Python script that contains the simulation for exploring the support of the random walk.
+- `example_ota_computation.py`: Python script that contains the over-the-air computation application example.
 - `gx2.py`: Python module that contains functions to calculate the PDF and CDF of a generalized chi-square distribution.
 - `many_steps.py`: Python module that contains the functions for the large N approximation.
 - `single_step.py`: Python module that contains the functions for a random walk with a single step.
@@ -81,11 +83,11 @@ article listed above.
 
 You can use the following BibTeX entry
 ```bibtex
-@misc{Besser2025distribution,
+@article{Besser2026distribution,
   author = {Besser, Karl-Ludwig},
   title = {On the Distribution of a Two-Dimensional Random Walk with Restricted Angles},
-  year = {2025},
-  month = {7},
+  journal = {IEEE Transactions on Signal Processing},
+  year = {2026},
   eprinttype = {arXiv},
   eprint = {2507.15475},
   eprintclass = {eess.SP},
