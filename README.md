@@ -22,6 +22,7 @@ The following files are provided in this repository:
 - `simulation_many_steps.py`: Python script that contains the simulation for a random walk with many steps (large N approximation).
 - `simulation_support.py`: Python script that contains the simulation for exploring the support of the random walk.
 - `example_ota_computation.py`: Python script that contains the over-the-air computation application example.
+- `truncation_error.py`: Python script that calculates the truncation error of the large-N approximation for the distribution of the radius.
 - `gx2.py`: Python module that contains functions to calculate the PDF and CDF of a generalized chi-square distribution.
 - `many_steps.py`: Python module that contains the functions for the large N approximation.
 - `single_step.py`: Python module that contains the functions for a random walk with a single step.
