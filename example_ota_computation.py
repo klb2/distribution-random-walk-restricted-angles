@@ -11,12 +11,19 @@ from util import export_results
 LOGGER = logging.getLogger(__file__)
 
 
-def _two_steps_likelihood(max_angle: float, num_samples: int):
+# def _two_steps_likelihood(max_angle: float, num_samples: int):
+def _likelihood(max_angle: float, num_samples: int, num_steps: int = 2):
     LOGGER.info(f"Starting Monte Carlo simulation for max_angle={max_angle:.2f}")
-    num_steps = 2
+    if num_steps == 2:
+        func_pdf_joint = pdf_joint_radius_angle_n2
+    else:
+        func_pdf_joint = lambda r, t, max_angle: pdf_joint_radius_angle_n_large(
+            r, t, max_angle, num_steps=num_steps
+        )
+
     phases = (2 * np.random.rand(num_samples, num_steps) - 1) * max_angle
     result_vector = np.sum(np.exp(1j * phases), axis=1)
-    likelihood = pdf_joint_radius_angle_n2(
+    likelihood = func_pdf_joint(
         np.abs(result_vector), np.angle(result_vector), max_angle=max_angle
     )
     return likelihood
@@ -24,6 +31,7 @@ def _two_steps_likelihood(max_angle: float, num_samples: int):
 
 def main(
     num_samples: int,
+    num_steps: int = 2,
     plot: bool = False,
     export: bool = False,
 ):
@@ -41,13 +49,16 @@ def main(
 
     # max_angle_two, inner_support_two, point_two, pdf_point_two = _two_steps()
     max_angle = [0.1, 0.5, np.pi / 4]
-    # likelihood_threshold = np.linspace(0, 10, 100)
-    likelihood_threshold = np.linspace(-1, 10, 150)
+    if num_steps <= 5:
+        # num_steps = 2
+        likelihood_threshold = np.linspace(-1, 10, 300)  # 150)
+    else:
+        likelihood_threshold = np.linspace(-4, 5, 500)
     false_alarm_prob = {}
     for _a in max_angle:
-        likelihood_two = _two_steps_likelihood(_a, num_samples)
-        likelihood_two = np.log(likelihood_two)
-        _false_alarm = np.reshape(likelihood_two, (-1, 1)) < likelihood_threshold
+        likelihood_n = _likelihood(_a, num_samples, num_steps=num_steps)
+        likelihood_n = np.log(likelihood_n)
+        _false_alarm = np.reshape(likelihood_n, (-1, 1)) < likelihood_threshold
         fa_prob = np.mean(_false_alarm, axis=0)
         false_alarm_prob[_a] = fa_prob
 
@@ -63,6 +74,8 @@ def main(
 
         for _a, _prob in false_alarm_prob.items():
             axs[1].plot(likelihood_threshold, _prob, label=f"$a={_a:.2f}$")
+        if num_steps > 2:
+            axs[1].set_yscale("log")
         axs[1].legend()
         axs[1].set_xlabel("Log-likelihood threshold $\\gamma$")
         axs[1].set_ylabel("Probability of false alarm $P_{\\text{FA}}$")
@@ -71,7 +84,7 @@ def main(
         LOGGER.info("Exporting results...")
         results = {f"a{k:.2f}": v for k, v in false_alarm_prob.items()}
         results["gamma"] = likelihood_threshold
-        fname = f"results-example-ota.dat"
+        fname = f"results-example-ota-N{num_steps}.dat"
         export_results(results, fname)
 
     LOGGER.info("Finished all simulations and calculations.")
@@ -82,6 +95,7 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
+    parser.add_argument("-N", "--num_steps", type=int, default=2)
     parser.add_argument("--num_samples", type=int, default=1000000)
     parser.add_argument("--plot", action="store_true")
     parser.add_argument("--export", action="store_true")
