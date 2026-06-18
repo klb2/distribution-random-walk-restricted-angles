@@ -2,7 +2,8 @@
 
 # This repository is accompanying the publication
 # "On the Distribution of a Two-Dimensional Random Walk with Restricted Angles"
-# (Karl-Ludwig Besser, IEEE Transactions on Signal Processing, 2026. arXiv:2507.15475).
+# (Karl-Ludwig Besser, IEEE Transactions on Signal Processing, vol. 74, pp.
+# 2316-2330, 2026. DOI:10.1109/TSP.2026.3694607, arXiv:2507.15475).
 #
 # Copyright (C) 2025-2026 Karl-Ludwig Besser
 # License: MIT

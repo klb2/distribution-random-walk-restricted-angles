@@ -3,9 +3,10 @@
 [![Marimo](https://img.shields.io/badge/Launch-Marimo_notebook-hsl(168%2C61%25%2C28%25))](https://marimo.app/?src=https%3A%2F%2Fraw.githubusercontent.com%2Fklb2%2Fdistribution-random-walk-restricted-angles%2Frefs%2Fheads%2Fmaster%2FInteractive.py)
 ![GitHub](https://img.shields.io/github/license/klb2/distribution-random-walk-restricted-angles)
 [![arXiv](https://img.shields.io/badge/arXiv-2507.15475-informational)](https://arxiv.org/abs/2507.15475)
+[![doi](https://img.shields.io/badge/doi-10.1109/TSP.2026.3694607-informational)](https://doi.org/10.1109/TSP.2026.3694607)
 
 
-This repository is accompanying the paper ["On the Distribution of a Two-Dimensional Random Walk with Restricted Angles"](https://arxiv.org/abs/2507.15475) (Karl-Ludwig Besser, Jul. 2025. [arXiv:2507.15475](https://arxiv.org/abs/2507.15475)).
+This repository is accompanying the paper ["On the Distribution of a Two-Dimensional Random Walk with Restricted Angles"](https://doi.org/10.1109/TSP.2026.3694607) (Karl-Ludwig Besser, IEEE Transactions on Signal Processing, vol. 74, pp. 2316-2330, 2026. [DOI:10.1109/TSP.2026.3694607](https://doi.org/10.1109/TSP.2026.3694607), [arXiv:2507.15475](https://arxiv.org/abs/2507.15475)).
 
 The idea is to give an interactive version of the calculations and presented
 concepts to the reader. One can also change different parameters and explore
@@ -88,7 +89,11 @@ You can use the following BibTeX entry
   author = {Besser, Karl-Ludwig},
   title = {On the Distribution of a Two-Dimensional Random Walk with Restricted Angles},
   journal = {IEEE Transactions on Signal Processing},
+  volume = {74},
   year = {2026},
+  pages = {2316--2330},
+  publisher = {IEEE},
+  doi = {10.1109/TSP.2026.3694607},
   eprinttype = {arXiv},
   eprint = {2507.15475},
   eprintclass = {eess.SP},
